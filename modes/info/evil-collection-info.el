@@ -33,6 +33,11 @@
 
 (defconst evil-collection-info-maps '(Info-mode-map))
 
+(defun me/Info-exit ()
+  (interactive)
+  (Info-exit)
+  (spacebar-close))
+
 ;;;###autoload
 (defun evil-collection-info-setup ()
   "Set up `evil' bindings for `info-mode'."
@@ -80,13 +85,13 @@
     ;; goto
     "gd" 'Info-goto-node ; TODO: "gd" does not match the rationale of "go to definition". Change?
     "gm" 'Info-menu
-    "m" 'evil-set-marker                ; Else this would be `Info-menu'.
-    "gt" 'Info-top-node
-    "t" 'evil-find-char-to              ; Else this would be `Info-top-node'.
-    "gT" 'Info-toc
-    "T" 'evil-find-char-to-backward     ; Else this would be `Info-toc'.
+    "m" 'evil-set-marker	     ; Else this would be `Info-menu'.
+    "gt" 'spacebar-switch
+    "t" 'Info-top-node
+    "gT" 'spacebar-switch-prev
+    "T" 'Info-toc
     "gf" 'Info-follow-reference
-    "f" 'evil-find-char                 ; Else this would be `Info-follow-reference'.
+    "f" 'evil-find-char	 ; Else this would be `Info-follow-reference'.
     ;; TODO: "[" and "]" are Emacs default for fine-grained browsing.
     ;; We usually use "C-j"/"C-k" for that.
     (kbd "C-j") 'Info-forward-node
@@ -95,12 +100,12 @@
     "gk" 'Info-prev
 
     "g?" 'Info-summary
-    "?" evil-collection-evil-search-backward  ; Else this would be `Info-summary'.
+    "?" evil-collection-evil-search-backward ; Else this would be `Info-summary'.
 
     ;; quit
-    "q" 'Info-exit
+    "q" 'me/Info-exit
     "ZQ" 'evil-quit
-    "ZZ" 'Info-exit)
+    "ZZ" 'me/Info-exit)
 
   (evil-collection-define-key 'visual 'Info-mode-map
     "l" 'evil-forward-char

@@ -92,6 +92,10 @@
 
 
 ;;; Define bindings
+(defun me/mu4e-quit ()
+  (interactive)
+  (mu4e-quit)
+  (spacebar-close))
 
 ;; TODO: Inhibit insert-state functions as per Evil Collection.
 (defvar evil-collection-mu4e-mode-map-bindings
@@ -113,7 +117,7 @@
      "f" smtpmail-send-queued-mail
      "m" mu4e~main-toggle-mail-sending-mode
      "s" mu4e-headers-search
-     "q" mu4e-quit)
+     "q" me/mu4e-quit)
 
     (mu4e-headers-mode-map
      "q" mu4e~headers-quit-buffer
